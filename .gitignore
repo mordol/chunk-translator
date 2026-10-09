@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ctrans/
+out/
+# Local input data and private notes (may contain personal information)
+samples/
+PLAN.md
+.DS_Store

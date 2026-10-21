@@ -117,6 +117,19 @@ so cached chunks are invalidated.
 - CLI flags can change between CLI releases; if an engine fails, check its `--help` output against
   `src/chunk_translator/adapters.py`.
 
+## Security notes
+
+- **Untrusted input (prompt injection).** The input text and the glossary are sent to the model
+  verbatim. The `claude` engine runs with all tools disabled, but the `codex` (`-s read-only`) and
+  `cursor` (`--mode ask`) engines only block writes — the agent can still *read* local files. A
+  malicious input could try to make it print file contents into the translation. Response
+  validation rejects anything outside the `[Lnnn]` lines, which limits but does not eliminate this.
+  Prefer `--engine claude` for text from unknown sources.
+- **Process arguments.** `cursor-agent` receives the prompt as a command-line argument, so the text
+  being translated is visible to other local users via `ps` while it runs.
+- **Plaintext cache.** Translations are cached unencrypted in `.ctrans/cache/`. Delete it after
+  translating sensitive documents.
+
 ## Development
 
 ```sh
@@ -137,3 +150,7 @@ src/chunk_translator/
   runner.py     # parallel execution, retries, cache
 tests/
 ```
+
+## License
+
+[MIT](LICENSE)

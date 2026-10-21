@@ -3,6 +3,7 @@ name = "chunk-translator"
 version = "0.1.0"
 description = "Translate long text in chunks via installed AI CLIs (codex / claude / cursor-agent)"
 requires-python = ">=3.11"
+license = "MIT"
 dependencies = []
 
 [project.scripts]
